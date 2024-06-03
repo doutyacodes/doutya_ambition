@@ -10,7 +10,17 @@ import { loginSuccess, storeMobile } from "@/lib/features/authSlice";
 import axios from "axios";
 import { baseURL } from "@/lib/baseData";
 import { Loader2 } from "lucide-react";
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 const Signup = () => {
   const [otp, setOtp] = useState("");
   const [ph, setPh] = useState("");
@@ -23,6 +33,7 @@ const Signup = () => {
   const [canResend, setCanResend] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     let interval;
@@ -106,6 +117,32 @@ const Signup = () => {
 
   return (
     <div className="relative w-full overflow-hidden h-screen bg-white z-40">
+      <AlertDialog open={open} defaultOpen={open} onOpenChange={setOpen}>
+      {/* The trigger for opening the dialog */}
+     
+      {/* The content of the dialog */}
+      <AlertDialogContent >
+        {/* The header section with title and description */}
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you a student?</AlertDialogTitle>
+          <AlertDialogDescription>
+          If you are not a student, you will be redirected to the Doutya-Recruit website.
+
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        
+        {/* The footer section with cancel and action buttons */}
+        <AlertDialogFooter>
+          <AlertDialogAction className="bg-white border text-black mt-2" >
+          <a href="https://doutya-ambition-seven.vercel.app/signup" className="w-full flex-1">No</a>
+
+          </AlertDialogAction>
+          <AlertDialogAction onClick={() => setOpen(false)}>
+            Yes
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
       <div className="mt-0 w-full flex justify-center">
         <div className="relative w-32 h-24">
           <Image
