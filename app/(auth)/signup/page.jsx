@@ -134,7 +134,7 @@ const Signup = () => {
         {/* The footer section with cancel and action buttons */}
         <AlertDialogFooter className="flex items-center gap-2">
           <AlertDialogAction className="bg-white border text-black mt-2 w-full" >
-          <a href="https://doutya-ambition-seven.vercel.app/signup" className="w-full flex-1">No</a>
+          <a href="https://doutya-recruit-kappa.vercel.app/signup" className="w-full flex-1">No</a>
 
           </AlertDialogAction>
           <AlertDialogAction className="w-full" onClick={() => setOpen(false)}>
