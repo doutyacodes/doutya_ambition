@@ -37,24 +37,24 @@ const ProgressCard = ({ item }) => {
         <p className="font-bold">{item.name}</p>
       </div>
       <div className="col-span-7 w-full space-y-2">
-        <div className="bg-slate-400 rounded-md h-2 ">
+        <div className="bg-slate-400 rounded-md h-[6px] ">
           <div
-            className=" h-2 rounded-md"
+            className=" h-[6px] rounded-md"
             style={{
               width: `${item.percentage_level}%`,
               background: `linear-gradient(to top right, ${from}, ${to})`,
             }}
           />
           <div className="flex w-full justify-between">
-            <p className="text-xs">Level {item.level}</p>
-            <p className="text-xs">Level {item.next_level}</p>
+            <p className="text-[10px]">Level {item.level}</p>
+            <p className="text-[10px]">Level {item.next_level}</p>
           </div>
         </div>
       </div>
       <div className="col-span-2">
-        <p className="font-bold flex gap-1 items-center">
+        <p className="font-bold flex gap-1 items-center text-sm">
           {" "}
-          {item.stars}/{item.next_star} <span> <FaStar size={"17"} color="gold" /> </span>
+          {item.stars}/{item.next_star} <span> <FaStar size={"14"} color="gold" /> </span>
         </p>
       </div>
     </div>

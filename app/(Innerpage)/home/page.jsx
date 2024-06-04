@@ -391,7 +391,7 @@ const PageDetails = () => {
               </DropdownMenu>
             </div>
           </div>
-          <div className="w-full space-y-3 pt-3">
+          <div className="w-full space-y-6 pt-3">
             {progressDetails &&
               progressDetails.length > 0 &&
               progressDetails.map((item, index) => {
