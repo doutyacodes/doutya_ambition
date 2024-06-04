@@ -46,7 +46,7 @@ const SignUp = () => {
     date: new Date(),
     gender: "Mr",
     mobile: null,
-    student: "no",
+    student: "yes",
     country_id: 101,
     state_id: "",
     university: "",
@@ -297,31 +297,7 @@ const SignUp = () => {
               </SelectContent>
             </Select>
           )}
-          <p className="font-bold">Are you currently a student?</p>
-          <div className="flex gap-4">
-            <button
-              onClick={() => setForm({ ...form, student: "yes" })}
-              className={cn(
-                "border border-black w-28 p-1.5 rounded-md",
-                form.student == "yes"
-                  ? "bg-blue-400 hover:bg-blue-400"
-                  : "bg-white hover:bg-white"
-              )}
-            >
-              <p className="text-black">Yes</p>
-            </button>
-            <button
-              onClick={() => setForm({ ...form, student: "no" })}
-              className={cn(
-                "border border-black w-28 p-1.5 rounded-md",
-                form.student == "no"
-                  ? "bg-blue-400 hover:bg-blue-400"
-                  : "bg-white hover:bg-white"
-              )}
-            >
-              <p className="text-black">No</p>
-            </button>
-          </div>
+          
           {form.student == "yes" && (
             <>
               <Input

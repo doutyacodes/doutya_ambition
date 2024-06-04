@@ -32,6 +32,7 @@ const PageDetails = () => {
   const [privateQuiz, setPrivateQuiz] = useState([]);
   const [progressDetails, setProgressDetails] = useState([]);
   const [progressDetailspublic, setProgressDetailspublic] = useState([]);
+  const [quizData, setQuizData] = useState([]);
 
   const [activeRouteIndex, setActiveRouteIndex] = useState("sixth");
   const router = useRouter();
@@ -80,9 +81,7 @@ const PageDetails = () => {
     const fetchQuiz = async () => {
       if (
         activeRouteIndex == "fourth" ||
-        activeRouteIndex == "third" ||
-        activeRouteIndex == "second"
-      ) {
+        activeRouteIndex == "third"       ) {
         if (activeRouteIndex) {
           try {
             let baseApiUrl;
@@ -109,6 +108,26 @@ const PageDetails = () => {
         if (activeRouteIndex) {
           try {
             const response = await axios.get(
+              `${baseURL}/getEachTestQuiz.php?userId=${
+                user?.id ? user.id : null
+              }&page_id=${page_id}&page_type=${activeRouteIndex}`
+            );
+            console.log(response.data);
+            if (response.data) {
+              setQuizData(response.data);
+            }
+          } catch (error) {
+            console.error("Error while fetching quiz");
+          }
+        }
+      }
+    };
+    fetchPrivateQuiz();
+    const fetchQuizTest = async () => {
+      if (activeRouteIndex == "second") {
+        if (activeRouteIndex) {
+          try {
+            const response = await axios.get(
               `${baseURL}/getEachQuizKeywords.php?userId=${
                 user?.id ? user.id : null
               }&page_id=${page_id}&page_type=${activeRouteIndex}`
@@ -123,7 +142,7 @@ const PageDetails = () => {
         }
       }
     };
-    fetchPrivateQuiz();
+    fetchQuizTest();
     const fetchProgress = async () => {
       if (user) {
         if (activeRouteIndex) {
@@ -179,12 +198,12 @@ const PageDetails = () => {
       {quizState?.challenges_by_all_keywords &&
         Object.keys(quizState.challenges_by_all_keywords).length > 0 &&
         Object.keys(quizState.challenges_by_all_keywords).map((keywordName, keywordIndex) => (
-          <div className="bg-gray-100 w-full p-3 mb-3" key={keywordIndex}>
+          <div className="bg-gray-100 w-full pt-3 mb-3" key={keywordIndex}>
             <p className="font-bold text-xl mb-4">{keywordName}</p>
             {Object.keys(quizState.challenges_by_all_keywords[keywordName].districts).map((districtName, districtIndex) => (
               <div className="bg-white w-full p-2 mb-2" key={districtIndex}>
                 <p className="font-bold mb-2">{districtName}</p>
-                <div className="flex gap-3 w-full overflow-x-scroll">
+                <div className="flex gap-2 w-full overflow-x-scroll">
                   {quizState.challenges_by_all_keywords[keywordName].districts[districtName].map((item, itemIndex) => {
                     let formattedEndDate;
                     let formattedDate;
@@ -246,59 +265,62 @@ const PageDetails = () => {
   const TestRoute = () => {
     return (
       <div className="w-full  h-full  p-1 flex-col flex gap-2">
-        {quizState?.challenges_by_all_keywords &&
-        Object.keys(quizState.challenges_by_all_keywords).length > 0 &&
-        Object.keys(quizState.challenges_by_all_keywords).map((keywordName, keywordIndex) => (
-          <div className="bg-gray-100 w-full p-3 mb-3" key={keywordIndex}>
-            <p className="font-bold text-xl mb-4">{keywordName}</p>
-            {Object.keys(quizState.challenges_by_all_keywords[keywordName].districts).map((districtName, districtIndex) => (
-              <div className="bg-white w-full p-2 mb-2" key={districtIndex}>
+       {quizData?.challenges_by_district &&
+          Object.keys(quizData.challenges_by_district).length > 0 &&
+          Object.keys(quizData.challenges_by_district).map(
+            (districtName, index) => (
+              <div className="bg-white w-full p-2" key={index}>
                 <p className="font-bold mb-2">{districtName}</p>
-                <div className="flex gap-3 w-full overflow-x-scroll">
-                  {quizState.challenges_by_all_keywords[keywordName].districts[districtName].map((item, itemIndex) => {
-                    let formattedEndDate;
-                    let formattedDate;
-                    formattedDate = moment(item.start_date).fromNow();
-                    const endDate = moment(item.end_date);
-                    const now = moment();
-    
-                    const duration = moment.duration(endDate.diff(now));
-    
-                    if (duration.asDays() >= 1) {
-                      formattedEndDate = Math.round(duration.asDays()) + " days";
-                    } else if (duration.asHours() >= 1) {
-                      formattedEndDate =
-                        Math.floor(duration.asHours()) +
-                        ":" +
-                        (duration.minutes() < 10 ? "0" : "") +
-                        duration.minutes() +
-                        " hrs";
-                    } else {
-                      formattedEndDate = duration.minutes() + " minutes";
-                    }
-    
-                    return (
-                      <ChallengeHomeCard
-                        key={itemIndex}
-                        item={item}
-                        formattedDate={formattedDate}
-                        formattedEndDate={formattedEndDate}
-                        inPage={true}
-                      />
-                    );
-                  })}
+                <div className="flex gap-2 w-full overflow-x-scroll">
+                  {quizData.challenges_by_district[districtName] &&
+                    quizData.challenges_by_district[districtName].length >
+                      0 &&
+                    quizData.challenges_by_district[districtName].map(
+                      (item, itemIndex) => {
+                        let formattedEndDate;
+                        let formattedDate;
+                        formattedDate = moment(item.start_date).fromNow();
+                        const endDate = moment(item.end_date);
+                        const now = moment();
+
+                        const duration = moment.duration(endDate.diff(now));
+
+                        if (duration.asDays() >= 1) {
+                          formattedEndDate =
+                            Math.round(duration.asDays()) + " days";
+                        } else if (duration.asHours() >= 1) {
+                          formattedEndDate =
+                            Math.floor(duration.asHours()) +
+                            ":" +
+                            (duration.minutes() < 10 ? "0" : "") +
+                            duration.minutes() +
+                            " hrs";
+                        } else {
+                          formattedEndDate = duration.minutes() + " minutes";
+                        }
+
+                        return (
+                          <ChallengeHomeCard
+                            key={itemIndex}
+                            item={item}
+                            formattedDate={formattedDate}
+                            formattedEndDate={formattedEndDate}
+                            inPage={true}
+                          />
+                        );
+                      }
+                    )}
                 </div>
               </div>
-            ))}
-          </div>
-        ))}
+            )
+          )}
         {privateQuiz?.challenges_by_district &&
           Object.keys(privateQuiz.challenges_by_district).length > 0 &&
           Object.keys(privateQuiz.challenges_by_district).map(
             (districtName, index) => (
               <div className="bg-white w-full p-2" key={index}>
                 <p className="font-bold mb-2">{districtName}</p>
-                <div className="flex gap-3 w-full overflow-x-scroll">
+                <div className="flex gap-2 w-full overflow-x-scroll">
                   {privateQuiz.challenges_by_district[districtName] &&
                     privateQuiz.challenges_by_district[districtName].length >
                       0 &&

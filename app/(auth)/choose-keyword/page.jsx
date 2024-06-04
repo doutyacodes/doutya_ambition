@@ -8,6 +8,17 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 function ChooseKeyword() {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -57,7 +68,7 @@ function ChooseKeyword() {
     if (data.length > 0) {
       const colors = [
         { from: "#D4145A", to: "#FBB03B" },
-        { from: "#009245", to: "#FCEE21" },
+        // { from: "#009245", to: "#FCEE21" },
         { from: "#662D8C", to: "#ED1E79" },
         { from: "#614385", to: "#516395" },
       ];
@@ -93,52 +104,49 @@ function ChooseKeyword() {
   };
 
   const handleSubmit = async () => {
-    if (window.confirm("The change is irreversible. Do you want to continue?")) {
-      console.log(selectedItems);
-      if (user) {
-        if (selectedItems.length > 0 && selectedItems.length <= 2) {
-          try {
-            const requests = selectedItems.map((item) => {
-              const payload = {
-                user_id: user.id,
-                keyword_id: item.id,
-              };
-              console.log("Submitting payload: ", payload); // Log the payload
-              return axios.post(`${baseURL}/add-keywords.php`, payload, {
-                headers: {
-                  "Content-Type": "application/x-www-form-urlencoded",
-                },
-              });
+    if (user) {
+      if (selectedItems.length > 0 && selectedItems.length <= 2) {
+        try {
+          const requests = selectedItems.map((item) => {
+            const payload = {
+              user_id: user.id,
+              keyword_id: item.id,
+            };
+            console.log("Submitting payload: ", payload); // Log the payload
+            return axios.post(`${baseURL}/add-keywords.php`, payload, {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
             });
+          });
 
-            const responses = await Promise.all(requests);
-            console.log(responses);
+          const responses = await Promise.all(requests);
+          console.log(responses);
 
-            const successResponses = responses.filter(
-              (response) => response.data.success
-            );
-
-            if (successResponses.length === selectedItems.length) {
-              // Update user.steps to 2
-              dispatch(editUser({ steps: 2 }));
-              router.replace("/home");
-            } else {
-              alert("Some tasks failed to submit");
-            }
-          } catch (error) {
-            console.error("Submission error:", error);
-            alert("An error occurred while submitting tasks.");
-          }
-        } else {
-          alert(
-            "You must select at least one item and can't select more than two items."
+          const successResponses = responses.filter(
+            (response) => response.data.success
           );
+
+          if (successResponses.length === selectedItems.length) {
+            // Update user.steps to 2
+            dispatch(editUser({ steps: 2 }));
+            router.replace("/home");
+          } else {
+            alert("Some tasks failed to submit");
+          }
+        } catch (error) {
+          console.error("Submission error:", error);
+          alert("An error occurred while submitting tasks.");
         }
       } else {
-        router.replace("/signup");
+        alert(
+          "You must select at least one item and can't select more than two items."
+        );
       }
+    } else {
+      router.replace("/signup");
     }
-  }
+  };
 
   return (
     <div className="h-full w-full p-4 bg-white min-h-screen">
@@ -160,12 +168,17 @@ function ChooseKeyword() {
         onSelectionChange={handleSelectionChange}
       /> */}
       <div className="w-full p-2">
-        <p className="text-center text-lg font-bold">Select up to 2 keywords.</p>
+        <p className="text-center text-lg font-bold">
+          Select up to 2 keywords.
+        </p>
       </div>
       <div className="w-full max-h-[60vh] overflow-y-scroll grid grid-cols-12 rounded-md gap-3 py-4">
         {data?.length > 0 &&
           data.map((item, index) => {
-            const { from, to } = itemColors[item.id] || { from: "#D4145A", to: "#FBB03B" };
+            const { from, to } = itemColors[item.id] || {
+              from: "#D4145A",
+              to: "#FBB03B",
+            };
             const isSelected = selectedItems.some(
               (selectedItem) => selectedItem.id === item.id
             );
@@ -173,7 +186,9 @@ function ChooseKeyword() {
               <div
                 key={index}
                 className={`rounded-full border shadow-md col-span-4 py-3 md:col-span-3 relative cursor-pointer ${
-                  isSelected ? 'bg-gradient-to-tr from-blue-500 to-purple-500' : 'bg-gray-200'
+                  isSelected
+                    ? "bg-gradient-to-tr from-blue-500 to-purple-500"
+                    : "bg-gray-200"
                 }`}
                 onClick={() => handleItemClick(item)}
                 style={{
@@ -197,13 +212,30 @@ function ChooseKeyword() {
       </div>
 
       <div className="mt-4 flex justify-center">
-        <button
-          onClick={handleSubmit}
-          className="bg-[#fdbd5b] text-white py-3 px-6 rounded-md"
-          disabled={selectedItems.length < 1 || selectedItems.length > 2}
-        >
-          Submit
-        </button>
+        <AlertDialog>
+          <AlertDialogTrigger>
+            <button
+              className="bg-[#fdbd5b] text-white py-3 px-6 rounded-md"
+              disabled={selectedItems.length < 1 || selectedItems.length > 2}
+            >
+              Submit
+            </button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                The change is irreversible. Do you want to continue?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleSubmit}>
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );
