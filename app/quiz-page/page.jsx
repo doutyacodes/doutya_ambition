@@ -11,9 +11,12 @@ const QuizPage = () => {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [marks, setMarks] = useState(0);
+  const [optionSend, setOptionSend] = useState("");
   const [isSelected, setIsSelected] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [shuffledOptions, setShuffledOptions] = useState([]);
+  const [answer_id, setAnswer_id] = useState(0);
+  const [question_id, setQuestion_id] = useState(0);
   const [timer, setTimer] = useState(0);
   const [dataQuestion, setDataQuestion] = useState(null);
   const videoRef = useRef(null);
@@ -36,7 +39,9 @@ const QuizPage = () => {
       const newDataQuestion = questions[currentIndex];
       setDataQuestion(newDataQuestion);
       setCount_question(quizDatas2.dataQuiz.count_question);
-      setTimer(newDataQuestion.timer);
+      if (newDataQuestion.quiz_type !== "psychological") {
+        setTimer(newDataQuestion.timer);
+      }
     }
   }, [currentIndex]);
 
@@ -93,9 +98,11 @@ const QuizPage = () => {
     return array;
   };
 
-  const handleAnswer = async (data) => {
+  const handleAnswer = async (data, answer_id, question_id) => {
     if (isSelected) return;
-
+    setOptionSend(data);
+    setQuestion_id(question_id);
+    setAnswer_id(answer_id);
     setIsSelected(data);
     let earnedMarks = 0;
 
@@ -120,12 +127,18 @@ const QuizPage = () => {
       formData.append("challenge_id", dataQuestion.challenge_id);
       formData.append("task_id", dataQuestion.task_id);
       formData.append("marks", earnedMarks);
-
-      const response = await axios.post(`${baseURL}/add-quiz-progress.php`, formData, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      });
+      formData.append("optionSend", optionSend);
+      formData.append("question_id", question_id);
+      formData.append("answer_id", answer_id);
+      const response = await axios.post(
+        `${baseURL}/add-quiz-progress.php`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
 
       console.log(response.data);
       if (response.status === 200) {
@@ -139,7 +152,7 @@ const QuizPage = () => {
     } catch (error) {
       console.error("Error adding marks:", error);
     }
-  }
+  };
 
   return (
     <div
@@ -157,24 +170,26 @@ const QuizPage = () => {
       )}
       <div style={{ margin: "0 auto", width: "80%", textAlign: "center" }}>
         <div className="w-full justify-center items-center flex">
-          <div
-            style={{ position: "relative", marginBottom: "20px" }}
-            className="w-16 h-16"
-          >
-            <CircularProgressbar
-              styles={buildStyles({
-                textSize: "20px",
-                pathColor: "#0b6ebf",
-                textColor: "#ffffff",
-                trailColor: "#d6d6d6",
-                backgroundColor: "#3e98c7",
-              })}
-              value={timer}
-              maxValue={dataQuestion?.timer}
-              circleRatio={1}
-              text={`${timer}s`}
-            />
-          </div>
+          {dataQuestion?.quiz_type !== "psychological" && (
+            <div
+              style={{ position: "relative", marginBottom: "20px" }}
+              className="w-16 h-16"
+            >
+              <CircularProgressbar
+                styles={buildStyles({
+                  textSize: "20px",
+                  pathColor: "#0b6ebf",
+                  textColor: "#ffffff",
+                  trailColor: "#d6d6d6",
+                  backgroundColor: "#3e98c7",
+                })}
+                value={timer}
+                maxValue={dataQuestion?.timer}
+                circleRatio={1}
+                text={`${timer}s`}
+              />
+            </div>
+          )}
         </div>
         <div
           style={{
@@ -206,8 +221,7 @@ const QuizPage = () => {
           <button
             key={index}
             style={{
-              backgroundColor:
-                isSelected === item.answer_text ? "orange" : "white",
+              backgroundColor: isSelected === item.answer_text ? "orange" : "white",
               borderRadius: "10px",
               padding: "15px",
               marginBottom: "10px",
@@ -215,7 +229,9 @@ const QuizPage = () => {
               textAlign: "left",
             }}
             className="bg-white border shadow-lg"
-            onClick={() => handleAnswer(item.answer_text)}
+            onClick={() =>
+              handleAnswer(item.answer_text, item.answer_id, item.question_id)
+            }
           >
             {item.answer_text}
           </button>

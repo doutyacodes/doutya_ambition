@@ -30,6 +30,7 @@ const LobbyScreen = ({ params }) => {
           const response = await axios.get(
             `${baseURL}/getSingleQuiz.php?userId=${user?.id}&task_id=${task_id}`
           );
+          console.log(response.data)
           if (response.status === 200) {
             setQuizData(response.data.challenges);
           } else {

@@ -39,7 +39,7 @@ function ChooseKeyword() {
   const fetchKeyword = async () => {
     try {
       const response = await axios.get(`${baseURL}/search-keywords.php`);
-      console.log(response.data);
+      // console.log(response.data);
       setData(response.data);
     } catch (error) {
       console.log(error);
@@ -51,7 +51,7 @@ function ChooseKeyword() {
       const response = await axios.get(
         `${baseURL}/get-user-keywords.php?user_id=${user.id}`
       );
-      console.log("User keywords:", response.data);
+      // console.log("User keywords:", response.data);
       if (response.data.success) {
         setSelectedItems(response.data.data);
       }
@@ -112,7 +112,7 @@ function ChooseKeyword() {
               user_id: user.id,
               keyword_id: item.id,
             };
-            console.log("Submitting payload: ", payload); // Log the payload
+            // console.log("Submitting payload: ", payload); // Log the payload
             return axios.post(`${baseURL}/add-keywords.php`, payload, {
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

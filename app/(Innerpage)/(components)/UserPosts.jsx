@@ -47,7 +47,7 @@ const UserPosts = ({ item, user_id }) => {
       const response = await axios.get(
         `${baseURL}/toggle-post-likes.php?page_id=${item.page_id}&post_id=${item.post_id}&user_id=${user_id}`
       );
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.status === 200) {
         if (!heartActive) {

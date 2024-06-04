@@ -45,7 +45,7 @@ const page = () => {
     
               if (response.status === 200) {
                 setSearchData(response.data);
-                console.log(response.data);
+                // console.log(response.data);
               } else {
                 console.error("Failed to fetch users");
               }

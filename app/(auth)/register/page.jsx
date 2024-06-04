@@ -141,7 +141,7 @@ const SignUp = () => {
       });
 
       const result = response.data;
-      console.log("result", result);
+      // console.log("result", result);
       if (result.success) {
         dispatch(loginSuccess(result.user));
         router.replace("/choose-keyword");

@@ -55,7 +55,7 @@ const Results = () => {
         {todoData &&
           todoData?.length > 0 &&
           todoData.map((item, itemIndex) => {
-            console.log(item)
+            // console.log(item)
             let formattedEndDate;
             let formattedDate;
             formattedDate = moment(item.start_date).fromNow();

@@ -98,7 +98,7 @@ const Signup = () => {
           const response = await axios.get(
             `${baseURL}/checkAlreadyUser.php?phone=${formatPh}`
           );
-          console.log(response.data);
+          // console.log(response.data);
           if (response.data.success) {
             dispatch(loginSuccess(response.data.user));
             router.push("/home");

@@ -90,7 +90,7 @@ const UserDetails = ({ params }) => {
         const response = await axios.get(
           `${baseURL}/get-user-keywords.php?user_id=${user.id}`
         );
-        console.log("User keywords:", response.data);
+        // console.log("User keywords:", response.data);
         if (response.data.success) {
           setSelectedItems(response.data.data);
         } else {

@@ -94,7 +94,7 @@ const EditProfile = ({setReloadData,reloadData}) => {
         },
       });
 
-      console.log(response);
+      // console.log(response);
 
       if (response.data.success) {
         setReloadData(!reloadData)

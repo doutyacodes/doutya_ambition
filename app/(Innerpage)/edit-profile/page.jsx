@@ -93,7 +93,7 @@ const EditProfile = () => {
         },
       });
 
-      console.log(response);
+      // console.log(response);
 
       if (response.data.success) {
         router.replace(`/user/${user.id}`);
