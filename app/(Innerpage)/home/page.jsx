@@ -372,7 +372,7 @@ const PageDetails = () => {
         {
           user ? (
             <div className="p-3">
-          <div className=" flex gap-4 items-center">
+          <div className=" flex gap-4 items-center mb-5">
             <p className="text-xl font-bold">My Progress</p>
             <div>
               <DropdownMenu>

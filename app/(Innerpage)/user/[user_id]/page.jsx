@@ -136,7 +136,7 @@ const UserDetails = ({ params }) => {
           </div>
           <p className="font-bold text-lg">{userData?.name}</p>
         </div>
-        <div className="flex justify-between items-center shadow bg-[#0d8b4c]">
+        <div className="flex justify-between items-center shadow bg-[#0b6ebf]">
           <p
             className={cn(
               "flex-1 text-center py-3 text-white font-bold duration-200 ease-in-out transition-all cursor-pointer border-b border-black"
