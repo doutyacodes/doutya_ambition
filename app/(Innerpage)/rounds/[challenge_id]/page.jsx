@@ -183,7 +183,7 @@ const RoundScreen = ({ params }) => {
               </Link>
             );
           })}
-        {taskArray &&
+        {challenge.page_type!="tests" && taskArray &&
           taskArray[0] &&
           taskArray[0].rounds &&
           [...Array(taskArray[0].rounds - 1)].map((_, index) => (
