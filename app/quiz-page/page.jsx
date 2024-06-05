@@ -105,24 +105,22 @@ const QuizPage = () => {
     setAnswer_id(answer_id);
     setIsSelected(data);
     let earnedMarks = 0;
-  
+
     if (data === correctAnswer) {
       const maxMarks = 1000;
       const marks = (maxMarks / (dataQuestion.timer * 1000)) * (timer * 1000);
       earnedMarks = Math.max(0, marks.toFixed(2));
       setMarks(earnedMarks);
     }
-  
-    await submitMarks(earnedMarks, question_id, answer_id);
+
+    await submitMarks(earnedMarks);
   };
-  
 
   const handleTimeOut = async () => {
-    await submitMarks(0, question_id, answer_id);
+    await submitMarks(0);
   };
-  
 
-  const submitMarks = async (earnedMarks, question_id, answer_id) => {
+  const submitMarks = async (earnedMarks) => {
     try {
       const formData = new URLSearchParams();
       formData.append("user_id", quizDatas?.user.id);
@@ -141,7 +139,7 @@ const QuizPage = () => {
           },
         }
       );
-  
+
       console.log(response.data);
       if (response.status === 200) {
         if (currentIndex < quizDatas?.dataQuiz[0].count_question - 1) {
@@ -155,7 +153,6 @@ const QuizPage = () => {
       console.error("Error adding marks:", error);
     }
   };
-  
 
   return (
     <div
