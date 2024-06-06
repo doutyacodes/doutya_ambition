@@ -89,7 +89,7 @@ const Results = () => {
                 <TableHead className="min-w-[100px]"></TableHead>
                 <TableHead className="text-center">Title</TableHead>
                 <TableHead className="text-center">Round 1</TableHead>
-                <TableHead className="text-center">Page Title</TableHead>
+                <TableHead className="text-center">Company</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -177,7 +177,7 @@ const Results = () => {
                 <TableHead className="min-w-[100px]"></TableHead>
                 <TableHead className="text-center">Title</TableHead>
                 <TableHead className="text-center">Round 1</TableHead>
-                <TableHead className="text-center">Page Title</TableHead>
+                <TableHead className="text-center">Company</TableHead>
                 <TableHead className="text-center">Stars</TableHead>
               </TableRow>
             </TableHeader>
