@@ -87,9 +87,9 @@ const Results = () => {
             <TableHeader>
               <TableRow>
                 <TableHead className="min-w-[100px]"></TableHead>
+                <TableHead className="text-center">Company</TableHead>
                 <TableHead className="text-center">Title</TableHead>
                 <TableHead className="text-center">Round 1</TableHead>
-                <TableHead className="text-center">Company</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -128,7 +128,7 @@ const Results = () => {
                       <TableCell>
                         <div
                           className={
-                            " relative md:h-24 md:w-32 w-20 h-16 border rounded-md"
+                            " relative  w-20 h-16 border rounded-lg"
                           }
                         >
                           <Image
@@ -139,7 +139,8 @@ const Results = () => {
                           />
                         </div>
                       </TableCell>
-                      <TableCell>{item.title}</TableCell>
+                      <TableCell>{item.selectedMovie.title}</TableCell>
+                      <TableCell className="font-bold">{item.title}</TableCell>
                       <TableCell>
                         {item?.success && (
                           <div
@@ -156,7 +157,6 @@ const Results = () => {
                           </div>
                         )}
                       </TableCell>
-                      <TableCell>{item.selectedMovie.title}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -175,9 +175,9 @@ const Results = () => {
             <TableHeader>
               <TableRow>
                 <TableHead className="min-w-[100px]"></TableHead>
+                <TableHead className="text-center">Company</TableHead>
                 <TableHead className="text-center">Title</TableHead>
                 <TableHead className="text-center">Round 1</TableHead>
-                <TableHead className="text-center">Company</TableHead>
                 <TableHead className="text-center">Stars</TableHead>
               </TableRow>
             </TableHeader>
@@ -217,7 +217,7 @@ const Results = () => {
                       <TableCell>
                         <div
                           className={
-                            " relative md:h-24 md:w-32 w-20 h-16 border rounded-md"
+                            " relative  w-20 h-16 border rounded-lg"
                           }
                         >
                           <Image
@@ -228,7 +228,8 @@ const Results = () => {
                           />
                         </div>
                       </TableCell>
-                      <TableCell>{item.title}</TableCell>
+                      <TableCell>{item.selectedMovie.title}</TableCell>
+                      <TableCell className="font-bold">{item.title}</TableCell>
                       <TableCell>
                         {item?.success && (
                           <div
@@ -245,20 +246,28 @@ const Results = () => {
                           </div>
                         )}
                       </TableCell>
-                      <TableCell>{item.selectedMovie.title}</TableCell>
                       <TableCell>
-                        {
-            item.stars && (
-                <div>
-                    <div className="flex gap-3 w-full justify-center my-4">
-                    {Array(item.stars).fill(0).map((_, index) => (
-                    <FaStar key={index} color="gold" size={20} />
-                  ))}
-                    </div>
-                </div>
-            )
-        }
-                        </TableCell>
+                        <div className="flex gap-3 w-full justify-center my-4">
+                          {item.stars && (
+                            <div>
+                              {Array(item.stars)
+                                .fill(0)
+                                .map((_, index) => (
+                                  <FaStar key={index} color="gold" size={20} />
+                                ))}
+                            </div>
+                          )}
+                          {item.stars_left && (
+                            <div>
+                              {Array(item.stars_left)
+                                .fill(0)
+                                .map((_, index) => (
+                                  <FaStar key={index} color="gray" size={20} />
+                                ))}
+                            </div>
+                          )}
+                        </div>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
