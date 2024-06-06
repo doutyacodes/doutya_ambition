@@ -72,7 +72,7 @@ const Posts = ({ item, user_id }) => {
       <div className="p-3 space-y-5">
         {item.image && item.image.length > 0 && (
           <a href={baseImgURL + item.image} target="_blank">
-            <div className=" relative h-72">
+            <div className=" relative h-72 md:h-96">
               <Image
                 src={baseImgURL + item.image}
                 fill

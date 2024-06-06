@@ -61,7 +61,7 @@ const page = () => {
         fetchSearch();
       }, [searchText]);
   return (
-    <div className="max-w-[600px]  min-h-screen overflow-y-scroll w-full mx-auto bg-white border p-3 relative flex flex-col gap-4">
+    <div className="max-w-[800px]  min-h-screen overflow-y-scroll w-full mx-auto bg-white border p-3 relative flex flex-col gap-4">
       <div className="mt-2 w-full relative">
       <input type='text' placeholder='Explore connections...' class='bg-[#e5e5e5] rounded-md w-full p-2 placeholder:text-sm text-sm focus:outline-none' onChange={(e)=>setSearchText(e.target.value)} />
 <div className="absolute top-10 left-0 w-full z-[9999] flex flex-col gap-1 ">

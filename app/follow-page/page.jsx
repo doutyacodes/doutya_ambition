@@ -101,7 +101,7 @@ const FollowPage = () => {
     return text.substring(0, maxLength) + "...";
   };
   return (
-    <div className="max-w-[600px]  min-h-screen overflow-y-scroll w-full mx-auto bg-gray-100 border p-3 relative flex flex-col gap-4">
+    <div className="max-w-[800px]  min-h-screen overflow-y-scroll w-full mx-auto bg-gray-100 border p-3 relative flex flex-col gap-4">
       <div className="flex flex-col gap-3 justify-center items-center">
         <div className="relative w-20 h-20">
           <Image src={"/assets/images/wowfy-blue.png"} fill />

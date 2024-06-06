@@ -123,7 +123,7 @@ const CommentsPage = ({ params }) => {
     // }
   };
   return (
-    <div className="max-w-[600px]  min-h-screen overflow-y-scroll w-full mx-auto bg-white border p-3 relative flex flex-col gap-4">
+    <div className="max-w-[800px]  min-h-screen overflow-y-scroll w-full mx-auto bg-white border p-3 relative flex flex-col gap-4">
      <div className="flex-1">
      {commentData?.length > 0 &&
         commentData?.map((item, index) => {

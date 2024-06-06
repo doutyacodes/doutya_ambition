@@ -193,7 +193,7 @@ const QuizPage = () => {
   };
   return (
     <div
-      className="max-w-[600px]  min-h-screen overflow-x-scroll  w-full mx-auto bg-blue-400 p-4"
+      className="max-w-[800px]  min-h-screen overflow-x-scroll  w-full mx-auto bg-blue-400 p-4"
       style={{ padding: "45px 20px" }}
     >
       {

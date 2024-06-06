@@ -89,7 +89,7 @@ const AddNewPost = () => {
   };
 
   return (
-    <div className="max-w-[600px]  min-h-screen w-full mx-auto bg-[#e5e5e5] relative">
+    <div className="max-w-[800px]  min-h-screen w-full mx-auto bg-[#e5e5e5] relative">
       <div className="flex p-3 justify-between items-center">
         <Link href={"/home"}>
           <IoMdClose color="gray" size={24} />
@@ -121,7 +121,7 @@ const AddNewPost = () => {
           )}
         </div>
       </div>
-      <div className="fixed w-full max-w-[600px]  bottom-0 bg-white">
+      <div className="fixed w-full max-w-[800px]  bottom-0 bg-white">
         <div className="flex justify-center items-center mt-2">
           <div className="w-6 h-1 bg-black rounded-full" />
         </div>

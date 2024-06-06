@@ -7,7 +7,7 @@ const HomeLayout = ({ children }) => {
       <div className="absolute inset-0 bg-white bg-opacity-50 z-10"></div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-[600px]  h-full w-full mx-auto border">
+      <div className="relative z-10 max-w-[800px]  h-full w-full mx-auto border">
         <main className="flex-1 h-full overflow-y-auto">
           {children}
         </main>

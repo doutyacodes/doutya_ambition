@@ -432,7 +432,7 @@ const PageDetails = () => {
     }
   };
   return (
-    <div className="max-w-[600px]  min-h-screen bg-white border  w-full mx-auto ">
+    <div className="max-w-[800px]  min-h-screen bg-white border  w-full mx-auto ">
       <div className="w-full p-1 bg-[#0b6ebf]" />
       {isLoading ? (
         <div className=" w-full h-full flex flex-1 justify-center items-center ">

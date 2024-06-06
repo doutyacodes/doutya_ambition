@@ -7,7 +7,7 @@ const InnerLayout = ({ children }) => {
     {/* Include shared UI here e.g. a header or sidebar */}
     <div className="absolute inset-0 bg-white bg-opacity-50 z-10"></div>
       {/* Include shared UI here e.g. a header or sidebar */}
-      <div className="max-w-[600px]  h-full w-full mx-auto border z-20 relative">
+      <div className="max-w-[800px]  h-full w-full mx-auto border z-20 relative">
 
       <Navbar />
 

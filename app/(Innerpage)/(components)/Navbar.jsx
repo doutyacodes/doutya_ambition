@@ -66,7 +66,7 @@ const Navbar = () => {
         </li>
       </ul>
       <div className="  fixed py-1 px-3  w-full left-0 bottom-0 z-50 ">
-        <div className=" px-3 py-1 max-w-[600px] rounded-full  bg-[#0b6ebf] border mx-auto relative flex w-full justify-around items-center">
+        <div className=" px-3 py-1 max-w-[800px] rounded-full  bg-[#0b6ebf] border mx-auto relative flex w-full justify-around items-center">
           <Link
             href={"/home"}
             className=" w-1/3 text-sm flex flex-col items-center justify-center"
