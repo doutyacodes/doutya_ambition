@@ -9,6 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useAppSelector } from "@/lib/hooks";
 import Link from "next/link";
+import { FaStar } from "react-icons/fa";
+import UserEligibility from "../../(components)/UserEligibility";
+
 const PageDetails = ({ params }) => {
   const user = useAppSelector((state) => state.auth.user);
   // const user = { id: 24 };
@@ -105,7 +108,7 @@ const PageDetails = ({ params }) => {
               {challenge.salary_desc}
             </p>
           </div>
-        ):(
+        ) : (
           <div className="flex justify-center items-center mt-3">
             No rules found
           </div>
@@ -134,7 +137,16 @@ const PageDetails = ({ params }) => {
     );
   };
   const EligibilityRoute = () => {
-    return <div>Descr</div>;
+    return (
+      <div className="mt-2 bg-white rounded-md w-full flex-1  h-full overflow-scroll min-h-[70vh] p-4">
+        <div className=" w-full">
+          {challenge?.eligibility?.length > 0 &&
+            challenge?.eligibility.map((item, index) => {
+              return <UserEligibility key={index} item={item} />;
+            })}
+        </div>
+      </div>
+    );
   };
   const RenderData = () => {
     switch (toggleNav) {
