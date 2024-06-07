@@ -216,33 +216,37 @@ const PageDetails = ({ params }) => {
             >
               Description
             </p>
-            <p
-              className={cn(
-                "flex-1 text-center py-3 bg-white font-bold duration-200 ease-in-out transition-all ",
-                toggleNav == "Rules" && "border-b border-black"
-              )}
-              onClick={() => handleToggle("Rules")}
-            >
-              Rules
-            </p>
-            <p
-              className={cn(
-                "flex-1 text-center py-3 bg-white font-bold duration-200 ease-in-out transition-all ",
-                toggleNav == "Salary" && "border-b border-black"
-              )}
-              onClick={() => handleToggle("Salary")}
-            >
-              Salary
-            </p>
-            <p
-              className={cn(
-                "flex-1 text-center py-3 bg-white font-bold duration-200 ease-in-out transition-all ",
-                toggleNav == "Eligibility" && "border-b border-black"
-              )}
-              onClick={() => handleToggle("Eligibility")}
-            >
-              Eligibility
-            </p>
+            {user && (
+              <>
+                <p
+                  className={cn(
+                    "flex-1 text-center py-3 bg-white font-bold duration-200 ease-in-out transition-all ",
+                    toggleNav == "Rules" && "border-b border-black"
+                  )}
+                  onClick={() => handleToggle("Rules")}
+                >
+                  Rules
+                </p>
+                <p
+                  className={cn(
+                    "flex-1 text-center py-3 bg-white font-bold duration-200 ease-in-out transition-all ",
+                    toggleNav == "Salary" && "border-b border-black"
+                  )}
+                  onClick={() => handleToggle("Salary")}
+                >
+                  Salary
+                </p>
+                <p
+                  className={cn(
+                    "flex-1 text-center py-3 bg-white font-bold duration-200 ease-in-out transition-all ",
+                    toggleNav == "Eligibility" && "border-b border-black"
+                  )}
+                  onClick={() => handleToggle("Eligibility")}
+                >
+                  Eligibility
+                </p>
+              </>
+            )}
           </div>
           {RenderData()}
         </div>
