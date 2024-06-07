@@ -72,7 +72,7 @@ const Posts = ({ item, user_id }) => {
       <div className="p-3 space-y-5">
         {item.image && item.image.length > 0 && (
           <a href={baseImgURL + item.image} target="_blank">
-            <div className=" relative h-72 md:h-96">
+            <div className=" relative h-72">
               <Image
                 src={baseImgURL + item.image}
                 fill
@@ -83,7 +83,7 @@ const Posts = ({ item, user_id }) => {
           </a>
         )}
         {item.video && item.video.length > 0 && (
-          <video className="w-full h-full rounded-md" controls preload="metadata">
+          <video className="w-full h-full max-h-[75vh] rounded-md" controls preload="metadata">
             <source src={baseVidUrl + item.video+'#t=0.1'} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

@@ -61,7 +61,7 @@ const ChallengeHomeCard = ({
           {<div className="h-[1px] bg-slate-300 my-1 w-full" />}
           <div className="w-full flex items-center justify-between">
           <div>
-            <p className="text-xs font-light">Time Remaining</p>
+            <p className="text-xs font-light">Deadline</p>
             <p className="text-xs font-semibold text-slate-600">{formattedEndDate}</p>
           </div>
           {

@@ -12,7 +12,7 @@ import Link from "next/link";
 const PageDetails = ({ params }) => {
   const user = useAppSelector((state) => state.auth.user);
   // const user = { id: 24 };
-  const [toggleNav, setToggleNav] = useState("Rules");
+  const [toggleNav, setToggleNav] = useState("Description");
   const [challenge, setChallenge] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +34,7 @@ const PageDetails = ({ params }) => {
         if (response.status === 200) {
           setChallenge(response.data);
           // console.log(response.data);
-          console.log(response.data);
+          // console.log(response.data);
         } else {
           console.error("Failed to fetch challenges");
         }
@@ -64,6 +64,94 @@ const PageDetails = ({ params }) => {
     } finally {
       setIsLoading(false); // Set isLoading to false if an error occurs
     }
+  };
+  const DescriptionRoute = () => {
+    return (
+      <div className="mt-2 bg-white rounded-md w-full flex-1  h-full overflow-scroll min-h-[70vh]">
+        <div className="w-full h-full  space-y-5 mt-3">
+          <div className="mt-4 justify-center flex flex-col gap-3 items-center w-full p-3">
+            <div className=" w-24 h-24  rounded-md relative">
+              <Image
+                src={baseImgURL + challenge.image}
+                fill
+                objectFit="cover"
+              />
+            </div>
+            <h3 className="font-bold text-center text-lg">{challenge.title}</h3>
+            <p className="text-base text-slate-500 italic">
+              {challenge.description}
+            </p>
+            <div className="flex-1 w-full justify-end h-full">
+              <Button className="bg-[#0d988c] px-3 w-full">
+                <Link
+                  href={user ? `/rounds/${challenge.challenge_id}` : "/signup"}
+                  className="w-full"
+                >
+                  Apply this job
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+  const RulesRoute = () => {
+    return (
+      <div className="mt-2 bg-white rounded-md w-full flex-1  h-full overflow-scroll min-h-[70vh] p-4">
+        {challenge?.salary_desc ? (
+          <div className="mt-4">
+            <p className="text-base text-slate-500 italic">
+              {challenge.salary_desc}
+            </p>
+          </div>
+        ):(
+          <div className="flex justify-center items-center mt-3">
+            No rules found
+          </div>
+        )}
+      </div>
+    );
+  };
+  const SalaryRoute = () => {
+    return (
+      <div className="mt-2 bg-white rounded-md w-full flex-1  h-full overflow-scroll min-h-[70vh] p-4">
+        <div className="flex gap-4 items-center">
+          <h6 className="text-lg"> Salary :</h6>
+          <h3 className="text-2xl md:text-4xl font-bold">
+            ₹{" "}
+            {challenge?.salary ? challenge.salary.toLocaleString("en-IN") : ""}
+          </h3>
+        </div>
+        {challenge?.salary_desc && (
+          <div className="mt-4">
+            <p className="text-base text-slate-500 italic">
+              {challenge.salary_desc}
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  };
+  const EligibilityRoute = () => {
+    return <div>Descr</div>;
+  };
+  const RenderData = () => {
+    switch (toggleNav) {
+      case "Description":
+        return <DescriptionRoute />;
+      case "Rules":
+        return <RulesRoute />;
+      case "Salary":
+        return <SalaryRoute />;
+      case "Eligibility":
+        return <EligibilityRoute />;
+      default:
+        return <DescriptionRoute />;
+    }
+  };
+  const handleToggle = (value) => {
+    setToggleNav(value);
   };
   return (
     <>
@@ -106,37 +194,45 @@ const PageDetails = ({ params }) => {
             </div>
             <div></div>
           </div>
-          <div className="mt-2 bg-white w-full flex-1  h-full overflow-scroll min-h-[70vh]">
-            <div className="w-full h-full  space-y-5 mt-3">
-              <div className="mt-4 justify-center flex flex-col gap-3 items-center w-full p-3">
-                <div className=" w-24 h-24  rounded-md relative">
-                  <Image
-                    src={baseImgURL + challenge.image}
-                    fill
-                    objectFit="cover"
-                  />
-                </div>
-                <h3 className="font-bold text-center text-lg">
-                  {challenge.title}
-                </h3>
-                <p className="text-base text-slate-500 italic">
-                  {challenge.description}
-                </p>
-                <div className="flex-1 w-full justify-end h-full">
-                  <Button className="bg-[#0d988c] px-3 w-full">
-                    <Link
-                      href={
-                        user ? `/rounds/${challenge.challenge_id}` : "/signup"
-                      }
-                      className="w-full"
-                    >
-                      Apply this job
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
+          <div className="flex justify-between items-center shadow rounded-md">
+            <p
+              className={cn(
+                "flex-1 text-center py-3 bg-white font-bold duration-200 ease-in-out transition-all ",
+                toggleNav == "Description" && "border-b border-black"
+              )}
+              onClick={() => handleToggle("Description")}
+            >
+              Description
+            </p>
+            <p
+              className={cn(
+                "flex-1 text-center py-3 bg-white font-bold duration-200 ease-in-out transition-all ",
+                toggleNav == "Rules" && "border-b border-black"
+              )}
+              onClick={() => handleToggle("Rules")}
+            >
+              Rules
+            </p>
+            <p
+              className={cn(
+                "flex-1 text-center py-3 bg-white font-bold duration-200 ease-in-out transition-all ",
+                toggleNav == "Salary" && "border-b border-black"
+              )}
+              onClick={() => handleToggle("Salary")}
+            >
+              Salary
+            </p>
+            <p
+              className={cn(
+                "flex-1 text-center py-3 bg-white font-bold duration-200 ease-in-out transition-all ",
+                toggleNav == "Eligibility" && "border-b border-black"
+              )}
+              onClick={() => handleToggle("Eligibility")}
+            >
+              Eligibility
+            </p>
           </div>
+          {RenderData()}
         </div>
       )}
     </>
